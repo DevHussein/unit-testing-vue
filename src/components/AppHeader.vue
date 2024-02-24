@@ -1,11 +1,15 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  $END$
+  <div>
+    <button v-show="loggedIn">Logout</button>
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<script lang="ts">
+export default {
+  data() {
+    return {
+      loggedIn: false,
+    };
+  },
+};
+</script>

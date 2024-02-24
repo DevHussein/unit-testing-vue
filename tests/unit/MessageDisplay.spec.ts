@@ -1,16 +1,18 @@
-import MessageDisplay from "@/components/MessageDisplay";
-import { mount } from "@vue/test-utils";
+import MessageDisplay from "@/components/MessageDisplay.vue";
+import { mount, flushPromises } from "@vue/test-utils";
+import { expect, jest, test } from "@jest/globals";
 import { getMessage } from "@/services/Message";
-import flushPromises from "flush-promises";
 
 jest.mock("@/services/Message");
+
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 describe("MessageDisplay", () => {
-  it("Calls getMessage and displays message", async () => {
+  test("Calls getMessage once and displays message", async () => {
     const mockMessage = "Hello from the db";
+    // @ts-ignore
     getMessage.mockResolvedValueOnce({ text: mockMessage });
     const wrapper = mount(MessageDisplay);
 
@@ -21,8 +23,9 @@ describe("MessageDisplay", () => {
     expect(message).toEqual(mockMessage);
   });
 
-  it("Displays an error when getMessage call fails", async () => {
+  test("Displays an error when getMessage call fails", async () => {
     const mockError = "Oops! Something went wrong.";
+    // @ts-ignore
     getMessage.mockRejectedValueOnce(mockError);
     const wrapper = mount(MessageDisplay);
 
